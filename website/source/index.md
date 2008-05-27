@@ -22,24 +22,36 @@
 
 ### What it is
 
+[Metatilitiies-base][] is the core of [Metatilities][]. It
+has the good stuff that sits at the foundation of the rest of
+the code that metabang.com writes.
+
+[Metatilities][] is [metabang.com][]'s big box of stuff that
+has accumulated over the years. It's full of things you're 
+pretty sure you don't need but can't quite bear to part with. 
+
+Putting metatilities-base into it's own project is a way of
+doing a bit of spring cleaning while there's still time
+(Summer is only three weeks away!˘)
 
 {anchor mailing-lists}
 
 ### Mailing Lists
 
-  * [xxxx-devel][devel-list]: A list for announcements, questions, patches, bug reports, and so on; It's for everything
+  * [metatilities-base-devel][devel-list]: A list for
+    announcements, questions, patches, bug reports, and so
+    on; It's for everything.
 
 {anchor downloads}
 
 ### Where is it
 
-A [Darcs][16] repository is available. The commands are listed below:
-    
-   [16]: http://www.darcs.net/
+A [darcs][] repository is available. The commands are listed below:
 
-    darcs get http://common-lisp.net/project/xxxx/
+    darcs get http://common-lisp.net/project/metatilities-base/
 
-xxxx is also [ASDF installable][]. Its CLiki home is right [where][cliki-home] you'd expect.
+metatilities-base is also [ASDF install][]able. Its CLiki
+home is right [where][cliki-home] you'd expect.
 
 There's also a handy [gzipped tar file][tarball].
 
@@ -48,8 +60,10 @@ There's also a handy [gzipped tar file][tarball].
 
 ### What is happening
 
-</div>
-</div>
+2008-May-26 - Split metatilities-base out on its own even
+more officially. A good time was had by all.
+
+</div> </div>
 
 {include resources/footer.md}
 
