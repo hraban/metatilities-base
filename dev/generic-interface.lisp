@@ -98,8 +98,9 @@
        (handler-bind ((error #'(lambda (condition)
                                  (gui-error condition "ERROR: " ,standard-message)
                                  (throw 'recover NIL)))
-                      #+MCL
-                      (warning #'(lambda (condition) (gui-error condition "WARNING: ")
+                      #+(or ccl mcl)
+                      (warning #'(lambda (condition) 
+				   (gui-error condition "WARNING: ")
                                    (muffle-warning condition))))
          ,@body))))
 
@@ -173,7 +174,7 @@
 ;;; ---------------------------------------------------------------------------
 ;;; Errors and warnings
 
-#-(or DIGITOOL OPENMCL)
+#-(or digitool openmcl)
 (defmethod report-condition ((condition condition) stream)
   (write-string 
    (cond ((typep condition 'error) "Error")
@@ -190,8 +191,8 @@
        (let ((*print-array* nil)
              (*print-length* 10)
              (*print-level* 4))
-         (#+(or DIGITOOL OPENMCL) ccl::report-condition 
-	  #-(or DIGITOOL OPENMCL) report-condition condition stream)))
+         (#+(or digitool openmcl) ccl::report-condition 
+	  #-(or digitool openmcl) report-condition condition stream)))
      (format nil "~A~A" prefix 
              (if standard-message 
                standard-message

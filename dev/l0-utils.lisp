@@ -1,6 +1,6 @@
 (in-package #:metatilities)
 
-#-MCL ; already has this
+#-(or mcl ccl) ; already has this
 (defun fixnump (arg)
   "Same as (typep arg 'fixnum).  A lot of Explorer code was written using this,
 and it's easier to implement it than to change them all."
@@ -30,14 +30,14 @@ and it's easier to implement it than to change them all."
 ;;;   PREDICATES
 ;;;
 
-#-(or DIGITOOL OPENMCL)
+#-(or digitool openmcl ccl)
 (defun neq (left right)
   (not (eq left right)))
 
-#-(or DIGITOOL OPENMCL)
+#-(or digitool openmcl ccl)
 (declaim (inline neq))
 
-#-(or DIGITOOL OPENMCL)
+#-(or digitool openmcl ccl)
 (define-compiler-macro neq (left right)
   `(not (eq ,left ,right)))
 
@@ -79,11 +79,11 @@ and it's easier to implement it than to change them all."
 code is currently being evaluated."
   
   #+allegro excl:*source-pathname*
-  #+Digitool (if *load-pathname* 
+  #+digitool (if *load-pathname* 
                *load-pathname*
                ;; This makes it work in a fred buffer...
                ccl:*loading-file-source-file*)
-  #-(or lucid allegro Genera Explorer MCL)
+  #-(or lucid allegro Genera Explorer digitool)
   *load-pathname*)
 
 (defmacro with-unique-names ((&rest vars) &body body)

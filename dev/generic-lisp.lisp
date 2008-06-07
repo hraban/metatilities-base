@@ -94,11 +94,11 @@
 
 
 (defmacro make-load-form* (class-name)
-  #+(or OPENMCL (not MCL) ANSI-MAKE-LOAD-FORM)
+  #+(or openmcl (not mcl) ansi-make-load-form)
   `(defmethod make-load-form ((self ,class-name) &optional environment)
     (declare (ignore environment))
     (make-load-form-saving-slots self))
-  #+(and DIGITOOL (not ANSI-MAKE-LOAD-FORM))
+  #+(and digitool (not ansi-make-load-form))
   `(defmethod make-load-form ((self ,class-name))
     (make-load-form-saving-slots self)))
 

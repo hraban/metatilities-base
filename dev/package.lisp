@@ -240,6 +240,7 @@
   
   ;; macros
   (:export
+   #:muffle-redefinition-warnings
    #:nyi
    #:deprecated
    #:make-obsolete
