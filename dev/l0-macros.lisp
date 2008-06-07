@@ -242,16 +242,20 @@ i.e. so you usually fix the problem and then call retry."
   `(with-stream-from-specifier (,var ,destination :output ,@args)
      ,@body))
 
-#+(or)
-;; WIP
-(defmacro without-redefinition-warnings (&body body)
-  (let (#+MCL (ccl::*warn-if-redefine* nil)
-        #+MCL (ccl::*record-source-file* nil))
-    #+allegro
-    `(excl:without-redefinition-warnings
-      ,@body)
-    #+sbcl
-    1
-    #+lispworks
-    2
-  ))
+(defmacro muffle-redefinition-warnings (&body body)
+  "Evaluate the body so that redefinition warnings will not be 
+signaled."
+  #+(or mcl ccl)
+  `(let ((ccl::*warn-if-redefine* nil)
+	 ;;?? FIXME not sure if this should be here or not...
+	 (ccl::*record-source-file* nil))
+     ,@body)
+  #+allegro
+  `(excl:without-redefinition-warnings
+     ,@body)
+  #+sbcl
+  1
+  #+lispworks
+  2
+  #-(or mcl ccl allegro sbcl)
+  `,@body)
