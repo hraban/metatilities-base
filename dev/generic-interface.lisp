@@ -183,7 +183,8 @@
    stream)
   (print-object condition stream))
 
-(defmethod gui-error* (interface condition &optional (prefix "") (standard-message nil)) 
+(defmethod gui-error* (interface condition &optional (prefix "") 
+		       (standard-message nil)) 
   (gui-warn* 
    interface
    (if *development-mode*
