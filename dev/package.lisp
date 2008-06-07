@@ -318,6 +318,8 @@
   
   ;; files
   (:export
+   #:invalid-stream-specifier-error
+
    #:file-to-list
    #:file-newer-than-file-p
    #:conjure-up-filename

@@ -1,5 +1,36 @@
 (in-package #:metatilities)
 
+(define-condition invalid-stream-specifier-error (error)
+  ((stream-specifier
+    :initarg :stream-specifier
+    :reader stream-specifier)
+   (stream-specifier-direction
+    :initarg :stream-specifier-direction
+    :reader stream-specifier-direction)
+   (stream-specifier-args
+    :initform nil
+    :initarg :stream-specifier-args
+    :reader stream-specifier-args))
+  (:report
+   (lambda (condition stream)
+     (format stream "~&Unable to make an ~a stream with specifier ~s~@[ and arguments ~{~s~^, ~}~]" 
+	   (stream-specifier-direction condition)
+	   (stream-specifier condition)
+	   (stream-specifier-args condition)))))
+
+#+(or)
+(error 'invalid-stream-specifier-error
+       :stream-specifier nil
+       :stream-specifier-direction :input
+       :stream-specifier-args '(foo bar))
+
+(defun invalid-stream-specifier-error (specifier direction &optional args)
+  (error 'invalid-stream-specifier-error
+	 :stream-specifier specifier
+	 :stream-specifier-direction direction
+	 :stream-specifier-args args))
+
+
 (defun pathname-name+type (pathname)
   "Returns a new pathname consisting of only the name and type from a non-wild pathname."
   (make-pathname :name (pathname-name pathname)
@@ -62,6 +93,14 @@
 				       (direction symbol) &rest args)
   (declare (ignore args))
   (values (make-string-output-stream) t))
+
+(defmethod make-stream-from-specifier ((stream-specifier (eql nil)) 
+				       (direction (eql :input)) &rest args)
+  (invalid-stream-specifier-error stream-specifier direction args))
+
+(defmethod make-stream-from-specifier ((stream-specifier (eql t)) 
+				       (direction (eql :input)) &rest args)
+  (invalid-stream-specifier-error stream-specifier direction args))
 
 (defmethod make-stream-from-specifier ((stream-specifier (eql :none)) 
 				       (direction symbol) &rest args)
