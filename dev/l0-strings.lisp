@@ -1,5 +1,19 @@
 (in-package #:metatilities)
 
+;;; ---------------------------------------------------------------------------
+;;; whitespace-p
+;;; ---------------------------------------------------------------------------
+
+(defparameter +whitespace-characters+
+  (list #\Space #\Newline #\Tab #\Page #\Null #\Linefeed)
+  "A list of characters that should be treated as whitespace. See, 
+for example, [whitespacep][].")
+
+(defun whitespacep (char)
+  "Returns true if `char` is an element of [+whitespace-characters+][]
+and nil otherwise."
+  (not (null (find char +whitespace-characters+ :test #'char=))))
+
 (defun string-starts-with (string prefix &key test)
   (setf test (or (and test (ensure-function test)) #'eql))
   (let ((mismatch (mismatch prefix string :test test)))
