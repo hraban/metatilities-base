@@ -427,9 +427,6 @@
    #:nearly-zero-p
    #:nearly-equal-p
    
-   #:+whitespace-characters+
-   #:whitespacep
-   
    #:samep
    #:nearly-samep
    #:*samep-test*
@@ -508,7 +505,11 @@
 
   ;; l0-strings
   (:export
+   #:+whitespace-characters+
+   #:whitespacep
    #:string-starts-with
-   #:string-ends-with))
+   #:string-ends-with
+   #:string-trim-if
+   #:strip-whitespace))
 
 
