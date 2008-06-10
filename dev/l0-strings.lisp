@@ -15,12 +15,20 @@ and nil otherwise."
   (not (null (find char +whitespace-characters+ :test #'char=))))
 
 (defun string-starts-with (string prefix &key test)
-  (setf test (or (and test (ensure-function test)) #'eql))
+  "Returns true if `string` starts with `prefix`.
+
+Use the keyword argument `test` (which defaults to `char=`) to check
+each character."
+  (setf test (or (and test (ensure-function test)) #'char=))
   (let ((mismatch (mismatch prefix string :test test)))
     (or (not mismatch) (= mismatch (length prefix)))))
 
 (defun string-ends-with (string suffix &key test)
-  (setf test (or (and test (ensure-function test)) #'eql))
+  "Returns true if `string` starts with `prefix`.
+
+Use the keyword argument `test` (which defaults to `eql`) to check
+each character."
+  (setf test (or (and test (ensure-function test)) #'char=))
   (let ((mm 0))
     (loop for end1 from (1- (length string)) downto 0
 	 for end2 from (1- (length suffix)) downto 0
