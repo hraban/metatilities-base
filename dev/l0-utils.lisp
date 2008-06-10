@@ -221,19 +221,6 @@ not sticky."
               (nearly-equal-p 10.2342345 10.234234 0.0001)))
 
 ;;; ---------------------------------------------------------------------------
-;;; whitespace-p
-;;; ---------------------------------------------------------------------------
-
-(defparameter +whitespace-characters+
-  (list #\Space #\Newline #\Tab #\Page #\Null #\Linefeed))
-
-;;; ---------------------------------------------------------------------------
-
-(defun whitespacep (char)
-  "Returns true if char is an element of +whitespace-characters+ and nil otherwise."
-  (not (null (find char +whitespace-characters+ :test #'char=))))
-
-;;; ---------------------------------------------------------------------------
 ;;; dotted-pair-p
 ;;; ---------------------------------------------------------------------------
 
