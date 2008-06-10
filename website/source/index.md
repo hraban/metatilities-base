@@ -22,7 +22,7 @@
 
 ### What it is
 
-[Metatilitiies-base][] is the core of [Metatilities][]. It
+[Metatilities-base][] is the core of [Metatilities][]. It
 has the good stuff that sits at the foundation of the rest of
 the code that metabang.com writes.
 
