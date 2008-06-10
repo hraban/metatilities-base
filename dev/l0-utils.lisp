@@ -1,6 +1,6 @@
 (in-package #:metatilities)
 
-#-(or mcl ccl) ; already has this
+#-(or openmcl digitool ccl) ; already has this
 (defun fixnump (arg)
   "Same as (typep arg 'fixnum).  A lot of Explorer code was written using this,
 and it's easier to implement it than to change them all."
