@@ -244,18 +244,20 @@ i.e. so you usually fix the problem and then call retry."
 
 (defmacro muffle-redefinition-warnings (&body body)
   "Evaluate the body so that redefinition warnings will not be 
-signaled."
-  #+(or mcl ccl)
+signaled. (suppored in Allegro, Clozure CL, CLisp, and Lispworks)"
+  #+allegro
+  `(excl:without-redefinition-warnings
+     ,@body)
+  #+(or ccl mcl)
   `(let ((ccl::*warn-if-redefine* nil)
 	 ;;?? FIXME not sure if this should be here or not...
 	 (ccl::*record-source-file* nil))
      ,@body)
-  #+allegro
-  `(excl:without-redefinition-warnings
-     ,@body)
-  #+sbcl
-  1
+  #+clisp
+  (let ((custom:*suppress-check-redefinition* t))
+    ,@body)
   #+lispworks
-  2
-  #-(or mcl ccl allegro sbcl)
-  `,@body)
+  `(let ((lw:*handle-warn-on-redefinition* :quiet))
+    ,@body)
+  #-(or allegro ccl clisp mcl)
+  `(progn ,@body))
