@@ -254,7 +254,7 @@ signaled. (suppored in Allegro, Clozure CL, CLisp, and Lispworks)"
 	 (ccl::*record-source-file* nil))
      ,@body)
   #+clisp
-  (let ((custom:*suppress-check-redefinition* t))
+  `(let ((custom:*suppress-check-redefinition* t))
     ,@body)
   #+lispworks
   `(let ((lw:*handle-warn-on-redefinition* :quiet))
