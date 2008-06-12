@@ -32,7 +32,7 @@ pretty sure you don't need but can't quite bear to part with.
 
 Putting metatilities-base into it's own project is a way of
 doing a bit of spring cleaning while there's still time
-(Summer is only three weeks away!˘)
+(Summer is only three weeks away!)
 
 {anchor mailing-lists}
 
