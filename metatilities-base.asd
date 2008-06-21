@@ -9,7 +9,7 @@ See the file COPYING for details
 
 (defsystem metatilities-base
   :author "Gary Warren King <gwking@metabang.com>"
-  :version "0.6.1"
+  :version "0.6.2"
   :maintainer "Gary Warren King <gwking@metabang.com>"
   :licence "MIT Style license"
   :description "These are metabang.com's Common Lisp basic utilities."
