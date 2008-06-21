@@ -243,3 +243,11 @@ the same (`string=`) namestrings."
      :max-depth max-depth)
     (nreverse results)))
 
+(defun file-newer-than-file-p (file1 file2)
+  "Compares the write dates of `file1' and `file' and returns t 
+if `file' is newer than `file2' or if it cannot be determined.  
+`file1' is usually the source file and `file2' the object file."
+  ;; File write dates default to 0 and 1 so that if they can't be
+  ;; determined, the file is recompiled, just to be safe.
+  (< (or (file-write-date file2) 0)
+     (or (file-write-date file1) 1)))
