@@ -52,7 +52,24 @@
                 #+sbcl      #:sb-sys
 
                 #:without-interrupts)
-    
+  
+  ;; these are stand-ins for those that will come from cl-containers
+  (:export
+   #:element
+   #:element-type
+   #:filter
+   #:parent
+   #:tag
+   #:size
+   #:root
+   #:next-element
+   #:total-size
+   #:argmax
+   #:argmin
+   #:best-item
+   #:filter
+   )
+
   (:export
    #:apply-if-exists
 
@@ -88,16 +105,6 @@
    #:maparray
    #:array-row
   
-   #:element
-   #:element-type
-   #:filter
-   #:parent
-   #:tag
-   #:size
-   #:root
-   #:next-element
-   #:total-size
-    
    #:without-interrupts
   
    #:linearize-array
