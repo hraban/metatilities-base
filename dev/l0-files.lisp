@@ -73,6 +73,15 @@
        :directory `(,@(pathname-directory pathname) 
 		      ,(namestring (pathname-name+type pathname))))))
 
+(defun pathname-samep (p1 p2)
+  "Returns true if the logical translations of `p1` and `p2` have 
+the same (`string=`) namestrings."
+  (and p1 p2
+       (typep p1 '(or string pathname))
+       (typep p2 '(or string pathname))
+       (string= (namestring (translate-logical-pathname p1))
+		(namestring (translate-logical-pathname p2)))))
+
 (defgeneric make-stream-from-specifier (specifier direction &rest args)
   (:documentation "Create and return a stream from specifier, direction and any other argsuments"))
 

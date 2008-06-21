@@ -320,6 +320,7 @@
   (:export
    #:invalid-stream-specifier-error
 
+   #:pathname-samep
    #:file-to-list
    #:file-newer-than-file-p
    #:conjure-up-filename
