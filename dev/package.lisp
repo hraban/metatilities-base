@@ -352,7 +352,8 @@
    #:month->string
    #:string->month
    
-   #:print-date date-string 
+   #:print-date
+   #:date-string 
    #:date-string-brief 
    #:print-time 
    #:print-universal-time

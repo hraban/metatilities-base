@@ -30,14 +30,16 @@
 	 :stream-specifier-direction direction
 	 :stream-specifier-args args))
 
-
 (defun pathname-name+type (pathname)
-  "Returns a new pathname consisting of only the name and type from a non-wild pathname."
+  "Returns a new pathname consisting of only the name and type from 
+a non-wild pathname."
   (make-pathname :name (pathname-name pathname)
                  :type (pathname-type pathname)))
 
 (defun physical-pathname-directory-separator ()
-  "Returns a string representing the separator used to delimit directories in a physical pathname. For example, Digitool's MCL would return \":\" whereas OpenMCL would return \"/\"."
+  "Returns a string representing the separator used to delimit directories 
+in a physical pathname. For example, Digitool's MCL would return \":\" 
+whereas OpenMCL would return \"/\"."
   (let* ((directory-1 "foo")
          (directory-2 "bar")
          (pn (namestring
