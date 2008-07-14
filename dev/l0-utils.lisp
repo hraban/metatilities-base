@@ -93,7 +93,7 @@ code is currently being evaluated."
      ,@body))
 
 (defun ensure-list (x)
-  "If `x` is a list then ensure-list returns it. If `x` is an atom, then this returns a singleton list containing `x`."
+  "If `x` is a list then ensure-list returns it. Otherwise, this returns a singleton list containing `x`."
   (if (listp x) x (list x)))
 
 (defun ensure-function (thing)
