@@ -41,6 +41,7 @@ at compile time whereever foo-1 is used."
          (values form))
        ,@body)))
 
+(eval-when (:compile-toplevel :load-toplevel :evaluate)
 (defmacro once-only (variable-list &body body)
   "Generate code that evaluates certain expressions only once.
 This is used in macros, for computing expansions.
@@ -82,7 +83,7 @@ Example:
 	 (if (null ,bind-vars)
 	     result
 	     `((lambda
-		,(nreverse ,bind-vars) ,result) . ,(nreverse ,bind-vals)))))))
+		,(nreverse ,bind-vars) ,result) . ,(nreverse ,bind-vals))))))))
 
 (defmacro with-variables (symbols &body body)
   "Using gensyms is necessary to prevent variables produced by macro expansions
@@ -174,11 +175,12 @@ i.e. so you usually fix the problem and then call retry."
          (handler-bind ,binds
            (:retry))))))
 
+(eval-when (:compile-toplevel :load-toplevel :evaluate)
 (defmacro with-gensyms (syms &body body)
   `(let ,(mapcar #'(lambda (s)
                      `(,s (gensym)))
                  syms)
-     ,@body))
+     ,@body)))
 
 
 (defvar *file-if-exists* :supersede
