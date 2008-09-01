@@ -34,13 +34,10 @@
 (defvar *samep-tolerance* (coerce 1e-5 'double-float)
   "Used by samep to determine how close things need to be to be 'the same'.")
 
-;;; ---------------------------------------------------------------------------
-
 (declaim (special *samep-test*)) 
 (defvar *samep-test* #'equal
-  "Used by samep to determine if two things are 'the same'. Defaults to #'equal")
-
-;;; ---------------------------------------------------------------------------
+  "Used by samep to determine if two things are 'the same'. Defaults
+to #'equal")
 
 (defgeneric samep (thing-1 thing-2)
   (:documentation "Compares two things and returns true if they are the same
@@ -59,8 +56,6 @@ in the sense of being interchangable. Implementations use the special variable
            (nearly-equal-p thing-1 thing-2 *samep-tolerance*))
   (:method ((thing-1 string) (thing-2 string))
            (string-equal thing-1 thing-2)))
-
-;;; ---------------------------------------------------------------------------
 
 (defgeneric nearly-samep (thing-1 thing-2 tolerance)
   (:documentation "Compares two things and returns true if they are the same
