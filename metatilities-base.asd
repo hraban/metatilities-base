@@ -56,3 +56,6 @@ See the file COPYING for details
 		    (funcall (intern (symbol-name '#:run-tests) :lift) 
 			     :config :generic)))
 
+(defmethod operation-done-p 
+           ((o test-op) (c (eql (find-system 'metatilities-base))))
+  (values nil))
