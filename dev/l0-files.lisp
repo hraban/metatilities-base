@@ -253,3 +253,9 @@ if `file' is newer than `file2' or if it cannot be determined.
   ;; determined, the file is recompiled, just to be safe.
   (< (or (file-write-date file2) 0)
      (or (file-write-date file1) 1)))
+
+(defun pathname-without-name+type (pathname)
+  "Chop off any name and type information from a pathname."
+  (make-pathname :name nil :type nil :defaults pathname)
+  #+(or)
+  (make-pathname :name :unspecific :type :unspecific :defaults pathname))

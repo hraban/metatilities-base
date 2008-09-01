@@ -82,6 +82,7 @@
    #:handler-bind*
 
    #:file-newer-than-file-p
+   #:pathname-without-name+type
    #:with-stream-from-specifier
    #:relative-pathname
    #:directory-pathname-p
