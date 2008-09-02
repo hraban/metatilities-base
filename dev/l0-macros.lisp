@@ -41,7 +41,7 @@ at compile time whereever foo-1 is used."
          (values form))
        ,@body)))
 
-(eval-when (:compile-toplevel :load-toplevel :evaluate)
+(eval-when (:compile-toplevel :load-toplevel :execute)
 (defmacro once-only (variable-list &body body)
   "Generate code that evaluates certain expressions only once.
 This is used in macros, for computing expansions.
@@ -175,7 +175,7 @@ i.e. so you usually fix the problem and then call retry."
          (handler-bind ,binds
            (:retry))))))
 
-(eval-when (:compile-toplevel :load-toplevel :evaluate)
+(eval-when (:compile-toplevel :load-toplevel :execute)
 (defmacro with-gensyms (syms &body body)
   `(let ,(mapcar #'(lambda (s)
                      `(,s (gensym)))
