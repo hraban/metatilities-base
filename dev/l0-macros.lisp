@@ -261,5 +261,9 @@ signaled. (suppored in Allegro, Clozure CL, CLisp, and Lispworks)"
   #+lispworks
   `(let ((lw:*handle-warn-on-redefinition* :quiet))
     ,@body)
+  #+sbcl
+  ;; from http://www.sbcl.info/manual/Controlling-Verbosity.html
+  `(locally (declare (sb-ext:muffle-conditions sb-ext:compiler-note))
+    ,@body)
   #-(or allegro ccl clisp mcl)
   `(progn ,@body))
