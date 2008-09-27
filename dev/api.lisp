@@ -15,6 +15,9 @@
 (defgeneric choose-new-file-question* (interface &rest args)
   (:documentation ""))
 
+(defgeneric y-or-n-question* (interface message &rest args)
+  (:documentation "Asks a yes or no question spiffily."))
+
 (defgeneric gui-error* (interface condition &optional prefix standard-message)
   (:documentation ""))
 
@@ -51,9 +54,26 @@
 (defgeneric select-instrument* (interface instrument &rest args)
   (:documentation ""))
 
+(defgeneric inspect-thing* (interface thing &rest args))
+
+
 (defgeneric sound-note* (interface pitch velocity &rest args)
   (:documentation ""))
 
 (defgeneric stop-notes* (interface)
   (:documentation ""))
+
+(defgeneric make-progress-bar (interface min max title &key)
+  )
+
+(defgeneric progress-bar-value (interface bar)
+  )
+
+(defgeneric (setf progress-bar-value) (value interface bar)
+  )
+
+(defgeneric close-progress-bar (interface bar) 
+  )
+
+(defgeneric make-ui-point* (interface x y))
 

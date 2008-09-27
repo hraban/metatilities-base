@@ -15,26 +15,6 @@
 ;;; progress bars
 ;;; ---------------------------------------------------------------------------
 
-(defgeneric make-progress-bar (interface min max title &key)
-  )
-
-;;; ---------------------------------------------------------------------------
-
-(defgeneric progress-bar-value (interface bar)
-  )
-
-;;; ---------------------------------------------------------------------------
-
-(defgeneric (setf progress-bar-value) (value interface bar)
-  )
-
-;;; ---------------------------------------------------------------------------
-
-(defgeneric close-progress-bar (interface bar) 
-  )
-
-;;; ---------------------------------------------------------------------------
-
 (defvar *dummy-progress-variable*)
 (defvar *progress-bar-count* 0)
 
@@ -104,16 +84,6 @@
                                    (muffle-warning condition))))
          ,@body))))
 
-;;; ---------------------------------------------------------------------------
-
-(defgeneric gui-error (condition &optional prefix standard-message)
-  )
-
-;;; ---------------------------------------------------------------------------
-
-(defgeneric gui-warn (string &rest args)
-  )
-
 
 ;;; ---------------------------------------------------------------------------
 ;;; beeping
@@ -124,17 +94,9 @@
 
 ;;; ---------------------------------------------------------------------------
 
-(defmethod interface-beep (&rest args)
+(defun interface-beep (&rest args)
   (apply #'interface-beep* *default-interface* args))
          
-
-;;; ---------------------------------------------------------------------------
-;;; y-or-n-question
-;;; ---------------------------------------------------------------------------
-
-(defgeneric y-or-n-question* (interface message &rest args)
-  (:documentation "Asks a yes or no question spiffily."))
-
 
 ;;; ---------------------------------------------------------------------------
 ;;; no interface interface implementations
@@ -201,7 +163,7 @@
 
 ;;; ---------------------------------------------------------------------------
 
-(defmethod gui-error (condition &optional (prefix "") (standard-message nil))
+(defun gui-error (condition &optional (prefix "") (standard-message nil))
   (gui-error* *default-interface* condition prefix standard-message))
 
 ;;; ---------------------------------------------------------------------------
@@ -212,7 +174,7 @@
 
 ;;; ---------------------------------------------------------------------------
 
-(defmethod gui-warn (string &rest args)
+(defun gui-warn (string &rest args)
   (apply #'gui-warn* *default-interface* string args))
 
 
@@ -402,7 +364,7 @@ is an atom or a singleton list."
 
 ;;; ---------------------------------------------------------------------------
 
-(defmethod inspect-thing (thing &rest args)
+(defun inspect-thing (thing &rest args)
   (apply #'inspect-thing* *default-interface* thing args)
   (values thing))
 
@@ -423,7 +385,7 @@ is an atom or a singleton list."
 
 ;;; ---------------------------------------------------------------------------
 
-(defmethod sound-note (pitch velocity &rest args)
+(defun sound-note (pitch velocity &rest args)
   (apply #'sound-note* *default-interface* pitch velocity args))
 
 ;;; ---------------------------------------------------------------------------
@@ -494,7 +456,7 @@ is an atom or a singleton list."
 
 ;;; ---------------------------------------------------------------------------
 
-(defmethod prompt-for (type message &rest args)
+(defun prompt-for (type message &rest args)
   (apply #'prompt-for* *default-interface* type message args))
 
 

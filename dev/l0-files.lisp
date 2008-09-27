@@ -144,7 +144,7 @@ the same (`string=`) namestrings."
 
 ;;;;
 
-(defmethod map-forms (input fn &key (ignore-read-errors-p t))
+(defun map-forms (input fn &key (ignore-read-errors-p t))
   (with-input (stream input)
     (flet ((next ()
 	     (if ignore-read-errors-p
