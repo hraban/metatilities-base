@@ -72,6 +72,7 @@
 
   (:export
    #:apply-if-exists
+   #:funcall-if-exists
 
    #:defclass-property
    #:deprecated

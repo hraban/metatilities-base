@@ -242,6 +242,22 @@ not sticky."
    ((ensure (not (dotted-pair-p nil))))))
 
 (defun apply-if-exists (function package &rest args)
+  "If the function `function` can be found in `package`, then apply it 
+to `args`.
+
+Returns nil if `package` does not exist or if `function` does not name a 
+function in `package`. Otherwise, returns whatever `function` returns."
+  (call-if-exists 'apply function package args))
+				      
+(defun funcall-if-exists (function package &rest args)
+  "If the function `function` can be found in `package`, then funcall it 
+on `args`.
+
+Returns nil if `package` does not exist or if `function` does not name a 
+function in `package`. Otherwise, returns whatever `function` returns."
+  (call-if-exists 'funcall function package args))
+
+(defun call-if-exists (call-with function package args)
   "If the function `function` can be found in `package`, then call it 
 with `args`.
 
@@ -254,8 +270,10 @@ function in `package`. Otherwise, returns whatever `function` returns."
 				   (symbol (symbol-name function)))
 				 package)))
 	(when (and symbol (fboundp symbol))
-	  (apply symbol args))))))
-				      
+	  (if (eq call-with 'funcall)
+	      (apply #'funcall symbol args)
+	      (apply #'apply symbol args)))))))
+
 (defun iterate-over-indexes (symbol-counts fn &optional (direction :left))
   "Apply fn to lists of indexes generated from symbol counts. The counting is
 done so that the first symbol varies most quickly unless the optional direction
