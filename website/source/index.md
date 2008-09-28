@@ -50,8 +50,8 @@ A [darcs][] repository is available. The commands are listed below:
 
     darcs get http://common-lisp.net/project/metatilities-base/
 
-metatilities-base is also [ASDF install][]able. Its CLiki
-home is right [where][cliki-home] you'd expect.
+metatilities-base is also [ASDF install][asdf-install]able.
+Its CLiki home is right [where][cliki-home] you'd expect.
 
 There's also a handy [gzipped tar file][tarball].
 
