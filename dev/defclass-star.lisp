@@ -211,16 +211,13 @@ separator is the hypen, in which case the wrapping parentheses are optional."
            
            (values ',name))))))
 
-;;; ---------------------------------------------------------------------------
 
 (defparameter *defclass-copy-condition-function* #'warn)
 (defvar *defclass-generate-make-load-form* nil)
 
-;;; ---------------------------------------------------------------------------
 
 (defclass-property defclass*-superclasses)
 
-;;; ---------------------------------------------------------------------------
 
 (defun class-copyable-p (class-name)
   ;; (spy class-name)
@@ -228,7 +225,6 @@ separator is the hypen, in which case the wrapping parentheses are optional."
       (some #'class-copyable-p
             (defclass*-superclasses class-name))))
 
-;;; ---------------------------------------------------------------------------
 
 (defmacro defclass* (name superclasses slots &rest class-options)
   "Like 'defclass-brief' but also provides the :MAKE-LOAD-FORM-P, :EXPORT-P, 

@@ -26,9 +26,7 @@
 (defmethod reset ((object t))
   (values nil))
 
-;;; ---------------------------------------------------------------------------
 ;;; samep and nearly samep
-;;; ---------------------------------------------------------------------------
 
 (declaim (special *samep-tolerance*)) 
 (defvar *samep-tolerance* (coerce 1e-5 'double-float)

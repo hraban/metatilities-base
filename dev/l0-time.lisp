@@ -61,9 +61,7 @@ is divisible by four but not by 100 or if it is divisible by 400."
              (days-in-month month leap-year?))
        (time-date date))))
 
-;;; ---------------------------------------------------------------------------
 ;;; format-date
-;;; ---------------------------------------------------------------------------
 
 (defun format-date (format date &optional stream time-zone)
   "Formats universal dates using the same format specifiers as NSDateFormatter. The format is:

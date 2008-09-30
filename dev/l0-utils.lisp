@@ -6,7 +6,6 @@
 and it's easier to implement it than to change them all."
   (typep arg 'fixnum))
 
-;;; ----------------------------------------------------------------------------
 ;;;
 ;;;   MACROS
 ;;;
@@ -25,7 +24,6 @@ and it's easier to implement it than to change them all."
   ) ; eval-always
 
 
-;;; ----------------------------------------------------------------------------
 ;;;
 ;;;   PREDICATES
 ;;;
@@ -41,7 +39,6 @@ and it's easier to implement it than to change them all."
 (define-compiler-macro neq (left right)
   `(not (eq ,left ,right)))
 
-;;; ----------------------------------------------------------------------------
 ;;;
 ;;;   FORMING SYMBOLS
 ;;;
@@ -72,7 +69,6 @@ and it's easier to implement it than to change them all."
   
   ) ; eval-always
 
-;;; ---------------------------------------------------------------------------
 
 (defun current-load-file ()
   "Returns (if possible) the value of the file currently being loaded or from which
@@ -101,14 +97,12 @@ code is currently being evaluated."
     (function thing)
     (symbol (symbol-function thing))))
 
-;;; ---------------------------------------------------------------------------
 ;;; newsym
 ;;;
 ;;; Sometimes it's nice to have your gensyms mean something when
 ;;; you're reading the macroexpansion of some form.  The problem
 ;;; is that if you give a prefix to GENSYM it remains the prefix
 ;;; until you change it.  
-;;; ---------------------------------------------------------------------------
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
   ;; the eval-when is because the newsym function is used in expanding
@@ -125,7 +119,6 @@ not sticky."
       (setf prefix (string prefix)))
     (make-symbol (format nil "~a~4,'0d" prefix (incf *newsym-counter*)))))
 
-;;; ---------------------------------------------------------------------------
 
 (defun export-exported-symbols (from-package to-package)
   "Make the exported symbols in from-package be also exported from to-package."
@@ -133,17 +126,14 @@ not sticky."
   (do-external-symbols (sym (find-package from-package))
     (export sym to-package)))
 
-;;; ---------------------------------------------------------------------------
 
 (defgeneric length-at-least-p (thing length)
   (:documentation "Returns true if thing has no fewer than length elements in it."))
 
-;;; ---------------------------------------------------------------------------
 
 (defmethod length-at-least-p ((thing sequence) length)
   (>= (length thing) length))
 
-;;; ---------------------------------------------------------------------------
 
 (defmethod length-at-least-p ((thing cons) length)
   (let ((temp thing))
@@ -152,17 +142,14 @@ not sticky."
           (setf temp (rest temp)))
     (not (null temp))))
 
-;;; ---------------------------------------------------------------------------
 
 (defgeneric length-at-most-p (thing length)
   (:documentation "Returns true if thing has no more than length elements in it."))
 
-;;; ---------------------------------------------------------------------------
 
 (defmethod length-at-most-p ((thing sequence) length)
   (<= (length thing) length))
 
-;;; ---------------------------------------------------------------------------
 
 (defmethod length-at-most-p ((thing cons) length)
   ;;?? cf. length-at-least-p, this seems similar
@@ -172,14 +159,12 @@ not sticky."
           (setf temp (rest temp)))
     (null temp)))
 
-;;; ---------------------------------------------------------------------------
 
 (declaim (inline length-1-list-p))
 (defun length-1-list-p (x) 
   "Is x a list of length 1? Note that this is better than the naive \(= \(length x\) 1\) because we don't need to traverse the entire list..."
   (and (consp x) (null (cdr x))))
 
-;;; ---------------------------------------------------------------------------
 
 (defun nearly-zero-p (x &optional (threshold 0.0001))
   "Returns true if `x` is within threshold of 0d0."
@@ -197,7 +182,6 @@ not sticky."
               (nearly-zero-p 0.00001)
               (nearly-zero-p -0.00001)))
 
-;;; ---------------------------------------------------------------------------
 
 (defun nearly-equal-p (x y threshold)
   "Returns true if x and y are within threshold of each other."
@@ -220,9 +204,7 @@ not sticky."
               (nearly-equal-p 10.1 10.2 0.0001)
               (nearly-equal-p 10.2342345 10.234234 0.0001)))
 
-;;; ---------------------------------------------------------------------------
 ;;; dotted-pair-p
-;;; ---------------------------------------------------------------------------
 
 (defun dotted-pair-p (putative-pair)
   "Returns true if and only if `putative-pair` is a dotted-list. I.e., if `putative-pair` is a cons cell with a non-nil cdr."

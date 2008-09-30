@@ -1,8 +1,6 @@
 (in-package #:metatilities)
 
-;;; ---------------------------------------------------------------------------
 ;;; Interface determination
-;;; ---------------------------------------------------------------------------
 
 (defvar *default-interface* nil)
 
@@ -23,9 +21,7 @@
   (is-interface-available-p *default-interface*))
 
 
-;;; ---------------------------------------------------------------------------
 ;;; quitting
-;;; ---------------------------------------------------------------------------
 
 (defgeneric quit-lisp* (interface)
   (:documentation "Quits Lisp"))
@@ -38,9 +34,7 @@
   (quit-lisp* *default-interface*))
 
 
-;;; ---------------------------------------------------------------------------
 ;;; memory management stuff
-;;; ---------------------------------------------------------------------------
 
 (defgeneric total-bytes-allocated* (interface)
   (:documentation "")
@@ -70,9 +64,7 @@
   (collect-garbage* *default-interface*))
 
 
-;;; ---------------------------------------------------------------------------
 ;;; other
-;;; ---------------------------------------------------------------------------
 
 (defmacro make-load-form* (class-name)
   #+(or openmcl (not mcl) ansi-make-load-form)

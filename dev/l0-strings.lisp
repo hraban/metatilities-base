@@ -1,8 +1,6 @@
 (in-package #:metatilities)
 
-;;; ---------------------------------------------------------------------------
 ;;; whitespace-p
-;;; ---------------------------------------------------------------------------
 
 (defparameter +whitespace-characters+
   (list #\Space #\Newline #\Tab #\Page #\Null #\Linefeed)

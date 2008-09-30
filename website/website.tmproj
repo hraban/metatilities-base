@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>source/index.md</string>
+	<string>source/resources/header.md</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -20,9 +20,7 @@
 			<key>filename</key>
 			<string>source/index.md</string>
 			<key>lastUsed</key>
-			<date>2008-09-28T15:04:03Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2008-09-28T22:25:22Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -100,12 +98,28 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>17</integer>
+				<integer>10</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>7</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>10</integer>
+			</dict>
 		</dict>
 		<key>source/resources/navigation.md</key>
 		<dict>
@@ -133,6 +147,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{677, 105}, {688, 763}}</string>
+	<string>{{270, 92}, {688, 763}}</string>
 </dict>
 </plist>
