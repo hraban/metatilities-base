@@ -24,6 +24,10 @@
 (defgeneric gui-warn* (interface string &rest args &key ok-text title size &allow-other-keys)
   (:documentation ""))
 
+;;?? probably should hsave an interface argument
+(defgeneric report-condition (condition stream)
+  )
+
 (defgeneric help-spec (view)
   (:documentation ""))
 
