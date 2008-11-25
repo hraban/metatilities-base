@@ -188,7 +188,6 @@
    #:samep
    #:nearly-samep
    #:*samep-test*
-   #:reset
    
    #:set-equal
    

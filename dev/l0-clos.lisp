@@ -22,10 +22,6 @@
            (declare (ignore error?))
            thing))
 
-
-(defmethod reset ((object t))
-  (values nil))
-
 ;;; samep and nearly samep
 
 (declaim (special *samep-tolerance*)) 
