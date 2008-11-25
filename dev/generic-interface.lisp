@@ -163,7 +163,7 @@
   (values 0))
 
 
-(defmethod make-color* (red green blue)
+(defun make-color* (red green blue)
   ;;; Make-color with sensible arguments
   "given red, green, and blue, returns an encoded rgb value"
   (make-color** (default-interface) red green blue))
@@ -173,7 +173,7 @@
   (make-color** interface level level level))
 
 
-(defmethod make-gray (level)
+(defun make-gray (level)
   ;;; These use a 0-255 scale for component levels
   (make-gray* (default-interface) level))
 
@@ -185,7 +185,7 @@
                 (round (* blue scale))))
 
 
-(defmethod make-scaled-color (red green blue scale)
+(defun make-scaled-color (red green blue scale)
   (make-scaled-color* (default-interface) red green blue scale))
 
   
@@ -281,7 +281,7 @@ is an atom or a singleton list."
   (values))
 
 
-(defmethod process-parameters (&rest args)
+(defun process-parameters (&rest args)
   (apply #'process-parameters* *default-interface* args)
   (values))
 
@@ -292,8 +292,7 @@ is an atom or a singleton list."
   (declare (ignore interface thing))
   (error "I don't know anything about clipboards."))
 
-
-(defmethod put-item-on-clipboard (thing)
+(defun put-item-on-clipboard (thing)
   (put-item-on-clipboard* *default-interface* thing)
   thing)
 
@@ -338,8 +337,7 @@ is an atom or a singleton list."
   (declare (ignore interface instrument args))
   (error "I don't know how to select instruments."))
 
-  
-(defmethod select-instrument (instrument &rest args)
+(defun select-instrument (instrument &rest args)
   (apply #'select-instrument* *default-interface* instrument args))
 
 
