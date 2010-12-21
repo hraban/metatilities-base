@@ -5,9 +5,9 @@
 
   * [Mailing Lists][3]
   * [Getting it][4]
-  * [Documentation][5]
+{remark  * [Documentation][5]}
   * [News][6]
-  * [Test results][tr]
+{remark  * [Test results][tr]}
   * [Changelog][7]
 
    [3]: #mailing-lists
@@ -46,19 +46,22 @@ doing a bit of spring cleaning while there's still time
 
 ### Where is it
 
-A [darcs][] repository is available. The commands are listed below:
+metabang.com is switching from [darcs][] to [git][]
+for source control; the current log5 repository is on
+[github][github-metatilities-base] and you can clone it using:
 
-    darcs get http://common-lisp.net/project/metatilities-base/
+    git clone git://github.com/gwkkwg/metatilities-base
 
-metatilities-base is also [ASDF install][asdf-install]able.
-Its CLiki home is right [where][cliki-home] you'd expect.
+You can use [ASDF-Install][asdf-install] or just download a
+[tarball][]. It's also on the [CLiki][log5-cliki].
 
-There's also a handy [gzipped tar file][tarball].
-
+You can follow development (such as it is :-)) on [unCLog][].
 
 {anchor news}
 
 ### What is happening
+
+2010-Dec-20 - moved to github.
 
 2008-May-26 - Split metatilities-base out on its own even
 more officially. A good time was had by all.
