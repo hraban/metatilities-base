@@ -5,13 +5,13 @@
   (:use #:common-lisp)
 
   ;; just a little bit of mop
-  (:import-from #+allegro          #:mop
-		#+clisp            #:clos
-		#+ecl              #:clos
-		#+lispworks        #:clos
-		#+(or mcl openmcl) #:ccl
-		#+cmu              #:clos-mop
-		#+sbcl             #:sb-mop
+  (:import-from #+(or allegro abcl) #:mop
+		#+clisp             #:clos
+		#+ecl               #:clos
+		#+lispworks         #:clos
+		#+(or mcl openmcl)  #:ccl
+		#+cmu               #:clos-mop
+		#+sbcl              #:sb-mop
 		#:class-direct-subclasses
 		#:class-precedence-list
 		#:class-finalized-p
