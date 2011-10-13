@@ -36,6 +36,9 @@
            #:lock-owner #:lock-name
            #:selected? #:whitespacep)
   
+  #+(or openmcl digitool ccl)
+  (:import-from #:ccl #:fixnump)
+  
   (:intern
    #:depth)
 
