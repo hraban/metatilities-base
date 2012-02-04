@@ -54,16 +54,14 @@ is divisible by four but not by 100 or if it is divisible by 400."
            (not (= (mod year 100) 0)))
       (= (mod year 400) 0)))
 
-(defun day-of-year (date)
+(defun day-of-year (date &optional time-zone)
   "Returns the day of the year [1 to 366] of the specified date [which must be \(CL\) universal time format.]" 
-  (let ((leap-year? (leap-year-p (time-year date))))
-    (+ (loop for month from 1 to (1- (time-month date)) sum
+  (let ((leap-year? (leap-year-p (time-year date time-zone))))
+    (+ (loop for month from 1 to (1- (time-month date time-zone)) sum
              (days-in-month month leap-year?))
-       (time-date date))))
+       (time-date date time-zone))))
 
-;;; format-date
-
-(defun format-date (format date &optional stream time-zone)
+(defun format-date (format date &optional stream (time-zone nil tz-supplied?))
   "Formats universal dates using the same format specifiers as NSDateFormatter. The format is:
 
 %% - A '%' character
@@ -94,13 +92,17 @@ is divisible by four but not by 100 or if it is divisible by 400."
      produces different results from strftime[]]
 %z - Time zone offset in hours and minutes from GMT [HHMM]
 
-None of %c, %F, %p, %x, %X, %Z, %z are implemented."
-  (declare (ignore time-zone))
+None of %c, %F, %x, %X, %Z are implemented."
   (let ((format-length (length format)))
-    (format 
-     stream "~{~A~}"
-     (loop for index = 0 then (1+ index) 
-	while (< index format-length) collect 
+    (multiple-value-bind (sec min hr day mon yr dow dst tz)
+	(if tz-supplied?
+	    (decode-universal-time date time-zone)
+	    (decode-universal-time date))
+      (declare (ignore dst))
+      (format 
+       stream "~{~A~}"
+       (loop for index = 0 then (1+ index) 
+	  while (< index format-length) collect 
 	  (let ((char (aref format index)))
 	    (cond 
 	      ((char= #\% char)
@@ -108,82 +110,86 @@ None of %c, %F, %p, %x, %X, %Z, %z are implemented."
 	       (cond 
 		 ;; %% - A '%' character
 		 ((char= char #\%) #\%)
-                            
+
 		 ;; %a - Abbreviated weekday name
-		 ((char= char #\a) (day->string (time-day-of-week date) :short))
-                            
+		 ((char= char #\a) (day->string dow :short))
+
 		 ;; %A - Full weekday name
-		 ((char= char #\A) (day->string (time-day-of-week date) :long))
-                            
+		 ((char= char #\A) (day->string dow :long))
+
 		 ;; %b - Abbreviated month name
-		 ((char= char #\b) (month->string (time-month date) :short))
-                            
+		 ((char= char #\b) (month->string mon :short))
+
 		 ;; %B - Full month name
-		 ((char= char #\B) (month->string (time-month date) :long))
-                            
+		 ((char= char #\B) (month->string mon :long))
+
 		 ;; %c - Shorthand for "%X, %x", the locale format for date and time
 		 ((char= char #\c) (nyi))
-                            
+
 		 ;; %d - Day of the month as a decimal number [01-31]
-		 ((char= char #\d) (format nil "~2,'0D" (time-date date)))
-                            
+		 ((char= char #\d) (format nil "~2,'0D" day))
+
 		 ;; %e - Same as %d but does not print the leading 0 for days 1 through 9 
 		 ;;      Unlike strftime, does not print a leading space
-		 ((char= char #\e) (format nil "~D" (time-date date)))
-                            
+		 ((char= char #\e) (format nil "~D" day))
+
 		 ;; %F - Milliseconds as a decimal number [000-999]
 		 ((char= char #\F) (nyi))
-                            
+
 		 ;; %H - Hour based on a 24-hour clock as a decimal number [00-23]
-		 ((char= char #\H) (format nil "~2,'0D" (time-hour date)))
-                            
+		 ((char= char #\H) (format nil "~2,'0D" hr))
+
 		 ;; %I - Hour based on a 12-hour clock as a decimal number [01-12]
-		 ((char= char #\I) (format nil "~2,'0D" (1+ (mod (time-hour date) 12))))
-                            
+		 ((char= char #\I) (format nil "~2,'0D" (1+ (mod (1- hr) 12))))
+
 		 ;; %j - Day of the year as a decimal number [001-366]
-		 ((char= char #\j) (format nil "~3,'0D" (day-of-year date)))
-                            
+		 ((char= char #\j) (format nil "~3,'0D" (day-of-year date time-zone)))
+
 		 ;; %m - Month as a decimal number [01-12]
-		 ((char= char #\m) (format nil "~2,'0D" (time-month date)))
-                            
+		 ((char= char #\m) (format nil "~2,'0D" mon))
+
 		 ;; %M - Minute as a decimal number [00-59]
-		 ((char= char #\M) (format nil "~2,'0D" (time-minute date)))
-                            
+		 ((char= char #\M) (format nil "~2,'0D" min))
+
 		 ;; %p - AM/PM designation for the locale
-		 ((char= char #\p) (nyi))
-                            
+		 ((char= char #\p) (format nil "~:[PM~;AM~]" (< hr 12)))
+
 		 ;; %S - Second as a decimal number [00-59]
-		 ((char= char #\S) (format nil "~2,'0D" (time-second date)))
-                            
+		 ((char= char #\S) (format nil "~2,'0D" sec))
+
 		 ;; %w - Weekday as a decimal number [0-6], where Sunday is 0
-		 ((char= char #\w) (format nil "~D" (time-day-of-week date)))
-                            
+		 ((char= char #\w) (format nil "~D" dow))
+
 		 ;; %x - Date using the date representation for the locale, 
 		 ;;      including the time zone [produces different results from strftime]
 		 ((char= char #\x) (nyi))
-                            
+
 		 ;; %X - Time using the time representation for the locale 
 		 ;;      [produces different results from strftime]
 		 ((char= char #\X) (nyi))
-                            
+
 		 ;; %y - Year without century [00-99]
 		 ((char= char #\y) 
-		  (let ((year-string (format nil "~,2A" (time-year date))))
+		  (let ((year-string (format nil "~,2A" yr)))
 		    (subseq year-string (- (length year-string) 2))))
-                            
+
 		 ;; %Y - Year with century [such as 1990]
-		 ((char= char #\Y) (format nil "~D" (time-year date)))
-                            
+		 ((char= char #\Y) (format nil "~D" yr))
+
 		 ;; %Z - Time zone name (such as Pacific Daylight Time; 
 		 ;;      produces different results from strftime.
 		 ((char= char #\Z) (nyi))
-                            
+
 		 ;; %z - Time zone offset in hours and minutes from GMT [HHMM]
-		 ((char= char #\z) (nyi))
-                            
+		 ((char= char #\z) 
+		  (multiple-value-bind (tzint tzfrac)
+		      (truncate tz)
+		    (format nil "~:[+~;-~]~2,'0D~2,'0D"
+			    (> tzint 0) (abs tzint) (* (abs tzfrac) 60))))
+
 		 (t
 		  (error "Ouch - unknown formatter '%~c" char))))
-	      (t char)))))))
+	      (t char))))))))
 
 (defconstant +longer-format-index+ 0)
 (defconstant +shorter-format-index+ 1)
