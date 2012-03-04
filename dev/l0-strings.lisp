@@ -3,7 +3,7 @@
 ;;; whitespace-p
 
 (defparameter +whitespace-characters+
-  (list #\Space #\Newline #\Tab #\Page #\Null #\Linefeed)
+  (list #\Space #\Newline #\Tab #\Page #\Null #\Linefeed #\Return)
   "A list of characters that should be treated as whitespace. See, 
 for example, [whitespacep][].")
 
