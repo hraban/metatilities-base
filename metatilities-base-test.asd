@@ -16,6 +16,8 @@ Author: Gary King
 		"unit-tests"
 		:components ((:file "package")
 			     (:file "tests"
-				    :depends-on ("package")))))
+				    :depends-on ("package"))
+			     (:file "test-parse-brief-class"
+				    :depends-on ("tests")))))
   :depends-on (:lift
 	       :metatilities-base))
