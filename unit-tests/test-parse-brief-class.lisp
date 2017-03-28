@@ -16,12 +16,14 @@
           (return-from same-options-p nil)))
   (values t))
 
+;; sbcl package locks will complain about declare *package* special!
+#-sbcl
 (deftestsuite test-parse-brief-slot (metatilities-base-test)
   ()
   (:dynamic-variables (*automatic-slot-accessors?* nil)
                       (*automatic-slot-initargs?* nil)
                       (*prune-unknown-slot-options* nil)
-		      (*package* (find-package '#:metatilities-base-test)))
+                      (*package* (find-package '#:metatilities-base-test)))
   (:equality-test #'slot-specs-same-p))
 
 (addtest
