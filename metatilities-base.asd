@@ -4,10 +4,7 @@ See the file COPYING for details
 
 |#
 
-(defpackage #:metatilities-base-system (:use #:asdf #:common-lisp))
-(in-package #:metatilities-base-system)
-
-(defsystem metatilities-base
+(defsystem "metatilities-base"
   :author "Gary Warren King <gwking@metabang.com>"
   :version "0.6.6"
   :maintainer "Gary Warren King <gwking@metabang.com>"
@@ -19,10 +16,10 @@ See the file COPYING for details
 		:pathname "dev/"
 		:components
 		((:file "package")))
-	       (:module 
+	       (:module
 		"dev"
 		:depends-on ("setup")
-		:components 
+		:components
 		((:file "api")
 		 (:file "l0-utils"
 			:depends-on ("api"))
@@ -51,11 +48,4 @@ See the file COPYING for details
 		 (:file "define-class"
 			:depends-on ("api" "defclass-star"))))
 	       )
-  :in-order-to ((test-op (load-op metatilities-base-test)))
-  :perform (test-op :after (op c)
-		    (funcall (intern (symbol-name '#:run-tests) :lift) 
-			     :config :generic)))
-
-(defmethod operation-done-p 
-           ((o test-op) (c (eql (find-system 'metatilities-base))))
-  (values nil))
+  :in-order-to ((test-op (test-op "metatilities-base-test"))))
