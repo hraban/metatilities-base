@@ -7,11 +7,13 @@
   ;; just a little bit of mop
   (:import-from #+(or allegro abcl) #:mop
 		#+clisp             #:clos
+        #+clasp             #:clos
 		#+ecl               #:clos
 		#+lispworks         #:clos
 		#+(or mcl openmcl)  #:ccl
 		#+cmu               #:clos-mop
 		#+sbcl              #:sb-mop
+        #-(or allegro abcl clisp clasp ecl lispworks mcl openmcl cmu sbcl) (error "Need to adapt defpackage of #:metabang.utilities")
 		#:class-direct-subclasses
 		#:class-precedence-list
 		#:class-finalized-p
@@ -53,7 +55,7 @@
                 #+(or openmcl digitool)       #:ccl
                 #+cmu       #:system
                 #+sbcl      #:sb-sys
-
+                #+clasp     #:mp
                 #:without-interrupts)
   
   ;; these are stand-ins for those that will come from cl-containers
