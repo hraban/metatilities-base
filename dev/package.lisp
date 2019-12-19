@@ -23,12 +23,24 @@
    #:class-precedence-list
    #:class-finalized-p
    #:finalize-inheritance)
-   
-  #+asdf
+
+  ;;
+  ;; FLAG -- DJC
+  ;;
+  ;; I'm not sure how to achieve the following imports and re-exports
+  ;; when we might be using ASDF's compile-bundle facilities to build
+  ;; metatilities into a loadable fasl (which should itself be free of
+  ;; asdf and loadable without asdf having been loaded in the image)
+  ;;
+  ;; These don't seem to be hard requirements of metatilities, so
+  ;; commenting them out for now - and other ideas welcome.
+  ;;
+  
+  #+nil ;; #+asdf
   (:import-from #:asdf
                 #:load-op #:compile-op #:test-op 
                 #:operate #:oos)
-  #+asdf
+  #+nil ;; #+asdf
   (:export
    #:load-op #:compile-op #:test-op 
    #:operate #:oos)
